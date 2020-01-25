@@ -13,22 +13,37 @@ class Listing extends React.Component {
         {
           id: 1,
           openRoles: 3,
-          skills: ["java", "react", "mongodb"]
+          skills: ["java", "react", "mongodb"],
+          teamUrl: "teams/indeed",
+          name: "indeed",
+          description:
+            "We are building a full stack application that handles job postings"
         },
         {
           id: 2,
           openRoles: 4,
-          skills: ["javascript", "react", "mongodb"]
+          skills: ["javascript", "react", "mongodb"],
+          teamUrl: "teams/huby",
+          name: "huby",
+          description:
+            "We are building a full stack application finds people their soul mates"
         },
         {
           id: 3,
           openRoles: 2,
-          skills: ["python", "angular", "postgres"]
+          skills: ["python", "angular", "postgres"],
+          teamUrl: "teams/stripe",
+          name: "stripe",
+          description: "We are building a payments platform"
         },
         {
           id: 4,
           openRoles: 1,
-          skills: ["elixir", "vue", "cassandra"]
+          skills: ["elixir", "vue", "cassandra"],
+          teamUrl: "teams/nexio",
+          name: "nexio",
+          description:
+            "We are building a full stack application does distributed stuff"
         }
       ]
     };
@@ -37,7 +52,7 @@ class Listing extends React.Component {
   render() {
     return (
       <div className="listing">
-        {this.state.sections.map(({ id, ...otherSectionProps }) => (
+        {this.state.teams.map(({ id, ...otherSectionProps }) => (
           <ListItem key={id} {...otherSectionProps} />
         ))}
       </div>
