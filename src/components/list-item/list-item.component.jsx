@@ -18,14 +18,8 @@ const ListItem = ({
   >
     <h3 className="team-name"> {name.toUpperCase()}</h3>
     <p className="team-description">{description}</p>
-    <p className="team-roles">{openRoles}</p>
-    <div className="team-skills">
-      {skills
-        .filter((skill, idx) => idx < 5)
-        .map(skill => (
-          <p className="skill-name">`${skill}, `</p>
-        ))}
-    </div>
+    <p className="team-roles">Open Roles: {openRoles}</p>
+    <div className="team-skills">Skills Wanted: {skills.join(", ")}</div>
   </div>
 );
 
