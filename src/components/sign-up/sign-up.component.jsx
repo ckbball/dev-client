@@ -1,5 +1,9 @@
 import React from "react";
-import axios from "axios";
+import { connect } from "react-redux";
+
+import { setAlert } from "../../actions/alert";
+import { register } from "../../actions/auth";
+import PropTypes from "prop-types";
 
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
@@ -33,41 +37,10 @@ class SignUp extends React.Component {
     } = this.state;
 
     if (password !== confirmPassword) {
-      alert("passwords don't match");
+      this.props.setAlert("passwords don't match", "danger");
       return;
-    }
-
-    const langArr = languages.split(",");
-
-    const newRequest = {
-      api: "v1",
-      user: {
-        username,
-        email,
-        password,
-        experience,
-        langArr
-      }
-    };
-
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      };
-
-      const body = JSON.stringify(newRequest);
-      console.log(body);
-
-      const res = await axios.post(
-        "http://localhost:8080/v1/signup",
-        body,
-        config
-      );
-      console.log(res.data);
-    } catch (err) {
-      console.log(err);
+    } else {
+      this.props.register({ username, email, password, experience, languages });
     }
   };
 
@@ -146,4 +119,9 @@ class SignUp extends React.Component {
   }
 }
 
-export default SignUp;
+SignUp.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired
+};
+
+export default connect(null, { setAlert, register })(SignUp);
