@@ -1,13 +1,16 @@
 import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
+import { login } from "../../actions/auth.js";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 
 import "./sign-in.styles.scss";
 
 class SignIn extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
       email: "",
@@ -15,10 +18,12 @@ class SignIn extends React.Component {
     };
   }
 
-  handleSubmit = event => {
+  handleSubmit = async event => {
     event.preventDefault();
 
-    this.setState({ email: "", password: "" });
+    const { email, password } = this.state;
+
+    this.props.login({ email, password });
   };
 
   handleChange = event => {
@@ -28,6 +33,7 @@ class SignIn extends React.Component {
   };
 
   render() {
+    const { email, password } = this.state;
     return (
       <div className="sign-in">
         <h2>I already have an account</h2>
@@ -37,7 +43,7 @@ class SignIn extends React.Component {
           <FormInput
             name="email"
             type="email"
-            value={this.state.email}
+            value={email}
             onChange={this.handleChange}
             label="email"
             required
@@ -45,7 +51,7 @@ class SignIn extends React.Component {
           <FormInput
             name="password"
             type="password"
-            value={this.state.password}
+            value={password}
             onChange={this.handleChange}
             label="password"
             required
@@ -58,4 +64,8 @@ class SignIn extends React.Component {
   }
 }
 
-export default SignIn;
+SignIn.propTypes = {
+  login: PropTypes.func.isRequired
+};
+
+export default connect(null, { login })(SignIn);
