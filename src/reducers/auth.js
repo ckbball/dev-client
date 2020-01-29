@@ -22,7 +22,7 @@ export default function(state = initialState, action) {
         ...state,
         isAuthenticated: true,
         loading: false,
-        user: payload
+        user: payload.user
       };
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
@@ -36,7 +36,7 @@ export default function(state = initialState, action) {
     case REGISTER_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:
-      localStorage.removeItem("token");
+      localStorage.setItem("token", "undefined");
       return {
         ...state,
         token: null,

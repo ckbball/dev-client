@@ -23,7 +23,7 @@ class SignIn extends React.Component {
 
     const { email, password } = this.state;
 
-    this.props.login({ email, password });
+    this.props.login(email, password);
   };
 
   handleChange = event => {

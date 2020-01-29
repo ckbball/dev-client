@@ -20,10 +20,16 @@ export const loadUser = () => async dispatch => {
   try {
     const res = await axios.get("http://localhost:8080/v1/auth");
 
-    dispatch({
-      type: USER_LOADED,
-      payload: res.data
-    });
+    if (res.data.status === "no") {
+      dispatch({
+        type: AUTH_ERROR
+      });
+    } else {
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data
+      });
+    }
   } catch (err) {
     dispatch({
       type: AUTH_ERROR
@@ -98,9 +104,11 @@ export const login = (email, password) => async dispatch => {
 
   const newRequest = {
     api: "v1",
-    email,
-    password
+    email: email,
+    password: password
   };
+
+  console.log(newRequest);
 
   const body = JSON.stringify(newRequest);
 
@@ -111,6 +119,8 @@ export const login = (email, password) => async dispatch => {
       config
     );
 
+    console.log(res.data);
+
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
@@ -118,10 +128,10 @@ export const login = (email, password) => async dispatch => {
 
     dispatch(loadUser());
   } catch (err) {
-    const errors = err.response.data.errors;
+    const error = err.response.data.error;
 
-    if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+    if (error) {
+      dispatch(setAlert(error, "danger"));
     }
 
     dispatch({
