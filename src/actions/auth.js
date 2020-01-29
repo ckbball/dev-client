@@ -7,9 +7,11 @@ import {
   USER_LOADED,
   AUTH_ERROR,
   LOGIN_FAIL,
-  LOGIN_SUCCESS
+  LOGIN_SUCCESS,
+  LOGOUT
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
+import { getCurrentProfile } from "./profile";
 
 // Load User
 export const loadUser = () => async dispatch => {
@@ -108,8 +110,6 @@ export const login = (email, password) => async dispatch => {
     password: password
   };
 
-  console.log(newRequest);
-
   const body = JSON.stringify(newRequest);
 
   try {
@@ -118,8 +118,6 @@ export const login = (email, password) => async dispatch => {
       body,
       config
     );
-
-    console.log(res.data);
 
     dispatch({
       type: LOGIN_SUCCESS,
@@ -138,4 +136,10 @@ export const login = (email, password) => async dispatch => {
       type: LOGIN_FAIL
     });
   }
+};
+
+// Logout / Clear Profile
+export const logout = () => dispatch => {
+  dispatch({ type: LOGOUT });
+  dispatch(setAlert("You have been logged out.", "neutral"));
 };

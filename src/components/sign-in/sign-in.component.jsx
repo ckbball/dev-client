@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import { login } from "../../actions/auth.js";
@@ -32,8 +33,15 @@ class SignIn extends React.Component {
     this.setState({ [name]: value });
   };
 
+  //Red
+
   render() {
     const { email, password } = this.state;
+
+    // Redirect if logged in
+    if (this.props.isAuthenticated) {
+      return <Redirect to="/dashboard" />;
+    }
     return (
       <div className="sign-in">
         <h2>I already have an account</h2>
@@ -65,7 +73,12 @@ class SignIn extends React.Component {
 }
 
 SignIn.propTypes = {
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
 };
 
-export default connect(null, { login })(SignIn);
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { login })(SignIn);
