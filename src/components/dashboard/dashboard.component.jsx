@@ -1,28 +1,37 @@
-import React from "react";
+import React, { useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { getCurrentProfile } from "../../actions/profile";
+import Listing from "../listing/listing.component";
 
-class dashboard extends React.Component {
-  constructor() {
-    super();
+const Dashboard = ({ user, getCurrentProfile, profile }) => {
+  useEffect(() => {
+    getCurrentProfile(user);
+  }, []);
 
-    this.state = {
-      profile: []
-    };
-  }
+  const noTeams = (
+    <div className="no-teams">
+      You currently don't have a team. Click
+      <Link className="option" to="/search">
+        here
+      </Link>
+      to find one to join.
+    </div>
+  );
 
-  componentDidMount() {
-    this.props.getCurrentProfile(this.props.user);
-  }
+  const teams = <Listing />;
 
-  render() {
-    return <div>haha</div>;
-  }
-}
+  return (
+    <div className="dashboard">
+      <div className="info">info here</div>
+      {<Fragment>{profile.profile !== null ? teams : noTeams}</Fragment>}
+    </div>
+  );
+};
 
-dashboard.propTypes = {
+Dashboard.propTypes = {
   user: PropTypes.object.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
@@ -33,4 +42,4 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(dashboard);
+export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);

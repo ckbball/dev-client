@@ -11,7 +11,6 @@ import {
   LOGOUT
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
-import { getCurrentProfile } from "./profile";
 
 // Load User
 export const loadUser = () => async dispatch => {
