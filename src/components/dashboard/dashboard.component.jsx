@@ -5,18 +5,23 @@ import { Link } from "react-router-dom";
 
 import { getCurrentProfile } from "../../actions/profile";
 import Listing from "../listing/listing.component";
+import Spinner from "../spinner/spinner.component";
 
-const Dashboard = ({ user, getCurrentProfile, profile }) => {
+const Dashboard = ({
+  auth: { user },
+  getCurrentProfile,
+  profile: { profile, loading }
+}) => {
   useEffect(() => {
     getCurrentProfile(user);
   }, []);
 
   const noTeams = (
     <div className="no-teams">
-      You currently don't have a team. Click
+      You currently don't have a team. Click{" "}
       <Link className="option" to="/search">
         here
-      </Link>
+      </Link>{" "}
       to find one to join.
     </div>
   );
@@ -25,20 +30,27 @@ const Dashboard = ({ user, getCurrentProfile, profile }) => {
 
   return (
     <div className="dashboard">
-      <div className="info">info here</div>
-      {<Fragment>{profile.profile !== null ? teams : noTeams}</Fragment>}
+      <div className="info-container">
+        <div className="info-exp">{user.experience}</div>
+        <div className="info-lang">{user.languages}</div>
+      </div>
+      {loading && profile === null ? (
+        <Spinner />
+      ) : (
+        <Fragment>{profile !== null ? teams : noTeams}</Fragment>
+      )}
     </div>
   );
 };
 
 Dashboard.propTypes = {
-  user: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  user: state.auth.user,
+  auth: state.auth,
   profile: state.profile
 });
 
