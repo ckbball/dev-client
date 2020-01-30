@@ -13,9 +13,6 @@ const Header = ({ auth: { isAuthenticated, loading }, logout }) => {
       <Link className="option" to="/search">
         SEARCH
       </Link>
-      <Link className="option" to="/myteams">
-        TEAMS
-      </Link>
       <Link className="option" to="/dashboard">
         PROFILE
       </Link>

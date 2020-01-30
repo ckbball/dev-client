@@ -1,12 +1,14 @@
 import React from "react";
 
-import Listing from "../../components/listing/listing.component";
-
 import "./homepage.styles.scss";
 
 const HomePage = () => (
   <div className="homepage">
-    <Listing />
+    <div className="home-title">Welcome to Dev Finder</div>
+    <div className="home-about">
+      Search for a team of developers to build a project with or create your own
+      and let others come to you.
+    </div>
   </div>
 );
 

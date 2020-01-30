@@ -10,11 +10,13 @@ import Alert from "./components/alert/alert.component";
 import setAuthToken from "./utils/setAuthToken";
 import Dashboard from "./components/dashboard/dashboard.component";
 import PrivateRoute from "./components/routing/private-route.component";
+import Search from "./pages/search/search.component.jsx";
 
 // Redux
 import { Provider } from "react-redux";
 import store from "./store";
 import { loadUser } from "./actions/auth";
+import { getCurrentProfile } from "./actions/profile";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -24,6 +26,7 @@ const App = () => {
   // load user once per mount/unmount
   useEffect(() => {
     store.dispatch(loadUser());
+    store.dispatch(getCurrentProfile(store.user));
   }, []);
   return (
     <Provider store={store}>
@@ -33,6 +36,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/signin" component={SignInAndSignUpPage} />
+          <Route exact path="/search" component={Search} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
         </Switch>
       </div>

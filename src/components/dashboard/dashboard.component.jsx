@@ -3,19 +3,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { getCurrentProfile } from "../../actions/profile";
 import Listing from "../listing/listing.component";
 import Spinner from "../spinner/spinner.component";
 
 const Dashboard = ({
-  auth: { user },
-  getCurrentProfile,
+  auth: { user, userLoading },
   profile: { profile, loading }
 }) => {
-  useEffect(() => {
-    getCurrentProfile(user);
-  }, []);
-
   const noTeams = (
     <div className="no-teams">
       You currently don't have a team. Click{" "}
@@ -30,14 +24,22 @@ const Dashboard = ({
 
   return (
     <div className="dashboard">
-      <div className="info-container">
-        <div className="info-exp">{user.experience}</div>
-        <div className="info-lang">{user.languages}</div>
-      </div>
-      {loading && profile === null ? (
+      {userLoading && user === null ? (
         <Spinner />
       ) : (
-        <Fragment>{profile !== null ? teams : noTeams}</Fragment>
+        <Fragment>
+          <div className="info-container">
+            <div className="info-exp">Experience: {user.experience}</div>
+            <div className="info-lang">
+              Languages: {user.languages.map(lang => `${lang}, `)}
+            </div>
+          </div>
+          {loading && profile === null ? (
+            <Spinner />
+          ) : (
+            <Fragment>{profile !== null ? teams : noTeams}</Fragment>
+          )}
+        </Fragment>
       )}
     </div>
   );
@@ -45,7 +47,6 @@ const Dashboard = ({
 
 Dashboard.propTypes = {
   auth: PropTypes.object.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 };
 
@@ -54,4 +55,4 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
+export default connect(mapStateToProps, null)(Dashboard);

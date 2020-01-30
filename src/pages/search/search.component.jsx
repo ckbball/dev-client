@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
+import Listing from "../../components/listing/listing.component";
+
 export class Search extends Component {
   constructor() {
     super();
@@ -10,7 +12,11 @@ export class Search extends Component {
   }
 
   render() {
-    return <div></div>;
+    return (
+      <div>
+        <Listing />
+      </div>
+    );
   }
 }
 
