@@ -24,6 +24,6 @@ export const getCurrentProfile = user => async dispatch => {
       dispatch({ type: GET_PROFILE, payload: out });
     }
   } catch (err) {
-    dispatch(PROFILE_ERROR);
+    dispatch({ type: PROFILE_ERROR });
   }
 };

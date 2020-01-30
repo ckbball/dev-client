@@ -1,6 +1,7 @@
 import React from "react";
 
 import ListItem from "../list-item/list-item.component";
+import ListNavigation from "../list-navigation/list-navigation.component";
 
 import "./listing.styles.scss";
 
@@ -55,6 +56,7 @@ class Listing extends React.Component {
         {this.state.teams.map(({ id, ...otherSectionProps }) => (
           <ListItem key={id} {...otherSectionProps} />
         ))}
+        <ListNavigation />
       </div>
     );
   }

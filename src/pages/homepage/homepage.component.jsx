@@ -10,4 +10,6 @@ const HomePage = () => (
   </div>
 );
 
+// add <Search /> above listing in homepage
+
 export default HomePage;
