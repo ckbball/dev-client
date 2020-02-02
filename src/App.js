@@ -17,6 +17,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { loadUser } from "./actions/auth";
 import { getCurrentProfile } from "./actions/profile";
+import { initTeam } from "./actions/team";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -27,6 +28,7 @@ const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
     store.dispatch(getCurrentProfile());
+    store.dispatch(initTeam());
   }, []);
   return (
     <Provider store={store}>

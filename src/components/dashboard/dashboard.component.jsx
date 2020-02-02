@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -24,8 +24,8 @@ const Dashboard = ({
 
   return (
     <div className="dashboard">
-      {userLoading && user === null ? (
-        <Spinner />
+      {userLoading || user === null ? (
+        ((<Spinner />), console.log("spinner"))
       ) : (
         <Fragment>
           <div className="info-container">
