@@ -12,7 +12,7 @@ export const getCurrentProfile = () => async dispatch => {
 
   try {
     // call this to get teams belonging to user
-    const res1 = await axios.get(`/v1/myteams`, config);
+    const res1 = await axios.get(`http://localhost:8082/v1/myteams`, config);
 
     if (res1.data.status !== "no") {
       const out = {

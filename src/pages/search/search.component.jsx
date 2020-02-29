@@ -17,6 +17,12 @@ export class Search extends Component {
     };
   }
 
+  componentDidMount() {
+    const { searchValue, page } = this.state;
+
+    this.props.searchTeams(page, searchValue);
+  }
+
   handleSubmit = async event => {
     event.preventDefault();
 
@@ -48,9 +54,6 @@ export class Search extends Component {
                 onChange={this.handleChange}
               >
                 <option value="0">* Select a Search Value</option>
-                <option value="Beginner">Beginner</option>
-                <option value="Middle">Middle</option>
-                <option value="Senior">Senior</option>
                 <option value="Frontend">Frontend</option>
                 <option value="Backend">Backend</option>
                 <option value="Devops">Devops</option>

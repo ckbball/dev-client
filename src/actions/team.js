@@ -4,8 +4,6 @@ import { SEARCH_TEAMS, SEARCH_ERROR, TEAM_INIT } from "./types";
 
 // Search Teams
 export const searchTeams = (page, searchValue) => async dispatch => {
-  console.log(page, searchValue);
-
   const config = {
     headers: {
       "Content-Type": "application/json"
@@ -15,13 +13,15 @@ export const searchTeams = (page, searchValue) => async dispatch => {
   const levels = ["beginner", "middle", "senior"];
   const roles = ["frontend", "backend", "devops", "design"];
 
-  var requestString = `/v1/teams?page=${page}&limit=10`;
+  var requestString = `http://localhost:8082/api/v1/teams?page=${page}&limit=10`;
   var uri = "";
 
   if (roles.indexOf(searchValue) > -1) {
     uri = requestString.concat(`&role=${searchValue}`);
   } else if (levels.indexOf(searchValue) > -1) {
-    uri = requestString.concat(`&level=${searchValue}`);
+    uri = requestString.concat(`&level=${levels.indexOf(searchValue) + 1}`);
+  } else {
+    uri = requestString;
   }
 
   try {

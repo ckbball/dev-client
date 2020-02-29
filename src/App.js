@@ -27,7 +27,6 @@ const App = () => {
   // load user once per mount/unmount
   useEffect(() => {
     store.dispatch(loadUser());
-    store.dispatch(getCurrentProfile());
     store.dispatch(initTeam());
   }, []);
   return (

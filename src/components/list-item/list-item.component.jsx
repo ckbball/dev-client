@@ -18,16 +18,6 @@ const ListItem = ({
   history,
   match
 }) => (
-  /*
-  <div
-    className="team-item"
-    onClick={() => history.push(`${match.url}${teamUrl}`)}
-  >
-    <h3 className="team-name"> {name.toUpperCase()}</h3>
-    <div className="team-description">{description}</div>
-    <div className="team-roles">Open Roles: {openRoles}</div>
-    <div className="team-skills">Skills Wanted: {skills.join(", ")}</div>
-  </div>*/
   <Fragment>
     <Card
       className="team-card"
